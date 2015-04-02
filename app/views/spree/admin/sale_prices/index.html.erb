@@ -9,41 +9,38 @@
     </legend>
 
     <%= form_for [:admin, @product, Spree::SalePrice.new], remote: true do |f| %>
-      <div class="row">
-        <div class="columns three">
+      <div class="col-lg-6 col-md-12">
+        <div class="form-group col-lg-4">
           <%= label_tag t('original_price') %>
-          <%= text_field_tag '', @product.original_price.to_f, disabled: true %>
+          <%= text_field_tag '', @product.original_price.to_f, disabled: true, class: "form-control" %>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="columns three">
+        <div class="form-group col-lg-4 col-md-6">
           <%= f.label :value, t('sale_price_amount') %>
-          <%= f.text_field :value %>
+          <%= f.text_field :value, class: "form-control" %>
         </div>
-      </div>
 
-      <div class="row">
-        <div class="columns three">
+        <div class="form-group col-lg-4 col-md-6">
           <%= f.label :currency, t('sale_price_currency') %>
-          <%= f.select :currency, options_for_select(supported_currencies_for_sale_price) %>
+          <%= f.select :currency, options_for_select(supported_currencies_for_sale_price), {}, { class: "form-control"} %>
         </div>
       </div>
 
-      <div class="row">
-        <div class="columns three">
+      <div class="col-lg-6 col-md-12">
+        <div class="col-lg-4 col-md-6">
           <%= f.label :start_at, t('sale_price_start_at') %>
-          <%= f.text_field :start_at, class: "datepicker" %>
+          <%= f.text_field :start_at, class: "datepicker form-control"  %>
         </div>
-        <div class="columns three">
+        <div class="col-lg-4 col-md-6">
           <%= f.label :end_at, t('sale_price_end_at') %>
-          <%= f.text_field :end_at, class: "datepicker" %>
+          <%= f.text_field :end_at, class: "datepicker form-control" %>
         </div>
-        <div class="columns three">
+        <div class="col-lg-4 pull-right">
           <%= f.label :submit, style: 'visibility: hidden;' %>
-          <%= f.submit "Add Sale Price" %>
+          <%= f.submit "Add Sale Price", class: "btn btn-default" %>
         </div>
       </div>
+
     <% end %>
   </fieldset>
 </div>
