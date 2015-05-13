@@ -1,2 +1,2 @@
 require 'spree_core'
-require 'spree_sale_pricing/engine'
+require 'spree_sale_price/engine'
