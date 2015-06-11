@@ -2,7 +2,7 @@
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree-sale_price'
-  s.version     = '3.0.3'
+  s.version     = '3.0.4'
   s.summary     = 'Adds sale pricing functionality to Spree Commerce'
   s.description = 'Adds sale pricing functionality to Spree Commerce'
   s.required_ruby_version = '>= 1.9.3'

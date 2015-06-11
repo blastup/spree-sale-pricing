@@ -101,6 +101,6 @@ Spree::Price.class_eval do
 
   private
     def first_sale(scope)
-      scope.order("value DESC").first
+      scope.order("value ASC").first
     end
 end
