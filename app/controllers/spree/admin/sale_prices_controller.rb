@@ -2,16 +2,17 @@ module Spree
   module Admin
     class SalePricesController < BaseController
 
-      before_filter :load_product
+      # before_filter :load_product
 
       respond_to :js, :html
 
       def index
-        @sale_prices = @product.sale_prices
+        @sale_prices = Spree::SalePrice.all
+        @taxons = Spree::Taxon.limit(20).ransack(name_cont: params[:q]).result
       end
 
       def create
-        @sale_price = @product.put_on_sale params[:sale_price][:value], sale_price_params
+        # @sale_price = @product.put_on_sale params[:sale_price][:value], sale_price_params
         respond_with(@sale_price)
       end
 
@@ -35,7 +36,8 @@ module Spree
             :currency,
             :start_at,
             :end_at,
-            :enabled
+            :enabled,
+            :taxon_ids
         )
       end
     end
