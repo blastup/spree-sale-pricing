@@ -11,16 +11,21 @@ Spree::Price.class_eval do
         start_at: params.fetch(:start_at, Time.now),
         end_at: params.fetch(:end_at, nil),
         enabled: params.fetch(:enabled, true),
-        calculator: selected_calc(params.fetch(:kind, 'fixed'))
+        calculator: selected_calc(params.fetch(:kind, 'percentual'), value)
     }
     return sale_prices.new(sale_price_params)
   end
 
 
-  def selected_calc kind
-    if (kind == 'fixed')
+  def selected_calc kind, value
+    if (kind == "fixedprice")
       Spree::Calculator::FixedAmountSalePriceCalculator.new
-    else      
+    elsif (kind == "fixeddiscount")
+      original_price = Spree::Variant.find(self.variant_id).original_price.to_f
+      raise ArgumentError.new("Value can't be greater than original price") if value >= original_price
+      Spree::Calculator::FixedAmountOffSalePriceCalculator.new
+    else
+      raise ArgumentError.new("Value must be less than 1 or more than 0") if value >= 1 || value <= 0
       Spree::Calculator::PercentOffSalePriceCalculator.new
     end
   end
