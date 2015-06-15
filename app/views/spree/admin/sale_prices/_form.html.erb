@@ -1,25 +1,6 @@
 <%#= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => "Product Sale Prices"} %>
 
 <%= csrf_meta_tag %>
-<div data-hook="admin_sale_prices_form_taxons">
-  <%= f.field_container :taxons, class: ['form-group'] do %>
-      <%= f.label :taxon_ids, Spree.t(:taxons) %>
-
-      <% if can? :modify, Spree::Classification %>
-          <%= f.hidden_field :taxon_ids, value: @product.taxon_ids.join(',') %>
-      <% elsif @product.taxons.any? %>
-          <ul class="text_list">
-            <% @product.taxons.each do |taxon| %>
-                <li><%= taxon.name %></li>
-            <% end %>
-          </ul>
-      <% else %>
-          <div class="alert alert-info"><%= Spree.t(:no_resource_found, resource: :taxons) %></div>
-      <% end %>
-
-  <% end %>
-</div>
-
 <div id="add-line-item">
   <fieldset>
     <legend align="center">
@@ -35,7 +16,14 @@
 
     -->
     <%= form_for [:admin, Spree::SalePrice.new], remote: true do |f| %>
-        <div class="col-lg-6 col-md-12">
+      <div data-hook="admin_sale_prices_form_taxons">
+        <%= f.fields_for :taxons, class: ['form-group'] do |taxon_w| %>
+          <%= taxon_w.label :taxon_ids, Spree.t(:taxons) %>
+          <%= taxon_w.text_field :name, class: 'parent-name', data: '{autocomplete_source: Spree::Taxon.order(:name).map(&:name)}' %>
+        <% end %>
+      </div>
+
+      <div class="col-lg-6 col-md-12">
           <div class="form-group col-lg-4">
             <%= label_tag t('original_price') %>
             <%= f.check_box :enabled, class: "form-control" %>
@@ -74,3 +62,11 @@
 <div id="product-sale-prices-table">
   <%#= render partial: "table", locals: { product: @product } %>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    $('.parent-name').autocomplete({
+      source: $('.parent-name').data('autocomplete-source')
+    });
+  });
+</script>
