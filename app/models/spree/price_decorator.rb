@@ -2,6 +2,7 @@ Spree::Price.class_eval do
   has_many :sale_prices
 
   def put_on_sale(value, params = {})
+    value = value.class.to_s == 'String' ? value.to_f : value
     saved = new_sale(value, params).save
   end
 
@@ -13,12 +14,15 @@ Spree::Price.class_eval do
         enabled: params.fetch(:enabled, true),
         calculator: selected_calc(params.fetch(:kind, 'percentual'), value)
     }
+
+    if ((params[:kind] == 'percentual' || params[:kind].nil? ) && value >= 1)
+      sale_price_params[:value] = value / 100
+    end
+
     return sale_prices.new(sale_price_params)
   end
 
-
   def selected_calc kind, value
-    value = value.class.to_s == 'String' ? value.to_f : value
     if kind == 'fixedprice'
       Spree::Calculator::FixedAmountSalePriceCalculator.new
     elsif kind == 'fixeddiscount'
@@ -26,7 +30,7 @@ Spree::Price.class_eval do
       raise ArgumentError.new("Value can't be greater than original price") if value >= original_price
       Spree::Calculator::FixedAmountOffSalePriceCalculator.new
     else
-      raise ArgumentError.new("Value must be less than 1 or more than 0") if value >= 1 || value <= 0
+      raise ArgumentError.new("Value must be less than 1 or more than 0") if value <= 0
       Spree::Calculator::PercentOffSalePriceCalculator.new
     end
   end
