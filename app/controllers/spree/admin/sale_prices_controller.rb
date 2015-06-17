@@ -8,12 +8,27 @@ module Spree
 
       def index
         @sale_prices = Spree::SalePrice.all
-        @taxons = Spree::Taxon.limit(20).ransack(name_cont: params[:q]).result
+        @taxons = Spree::Taxon.all
       end
 
       def create
+        params[:sale_price][:taxons].each do  |taxon|
+
+          @sale_prices = []
+          @taxon = Spree::Taxon.find(taxon)
+          @taxon.products.each do |product|
+            @sale_price = product.put_on_sale(params[:sale_price][:value], sale_price_params)
+
+            @sale = Spree::SalePrice.last
+            debugger
+            Spree::SalePriceTaxon.create({sale_price_id: @sale.id, taxon_id: taxon})
+            @sale_prices << @sale_price
+          end
+        end
+        respond_with(@sale_prices)
+
         # @sale_price = @product.put_on_sale params[:sale_price][:value], sale_price_params
-        respond_with(@sale_price)
+        # respond_with(@sale_price)
       end
 
       def destroy
@@ -36,8 +51,7 @@ module Spree
             :currency,
             :start_at,
             :end_at,
-            :enabled,
-            :taxon_ids
+            :enabled
         )
       end
     end

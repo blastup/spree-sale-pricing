@@ -12,7 +12,10 @@ module Spree
 
     scope :active, -> { where(enabled: true).where('(start_at <= ? OR start_at IS NULL) AND (end_at >= ? OR end_at IS NULL)', Time.now, Time.now) }
 
+    has_many :spree_sale_price_taxons, :class_name => 'Spree::SalePriceTaxon'
+    has_many :taxons, through: :spree_sale_price_taxons
     before_destroy :touch_product
+
     # TODO make this work or remove it
     #def self.calculators
     #  Rails.application.config.spree.calculators.send(self.to_s.tableize.gsub('/', '_').sub('spree_', ''))

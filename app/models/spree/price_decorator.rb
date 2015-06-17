@@ -2,7 +2,7 @@ Spree::Price.class_eval do
   has_many :sale_prices
 
   def put_on_sale(value, params = {})
-    new_sale(value, params).save
+    saved = new_sale(value, params).save
   end
 
   def new_sale(value, params = {})
@@ -18,9 +18,10 @@ Spree::Price.class_eval do
 
 
   def selected_calc kind, value
-    if (kind == "fixedprice")
+    value = value.class.to_s == 'String' ? value.to_f : value
+    if kind == 'fixedprice'
       Spree::Calculator::FixedAmountSalePriceCalculator.new
-    elsif (kind == "fixeddiscount")
+    elsif kind == 'fixeddiscount'
       original_price = Spree::Variant.find(self.variant_id).original_price.to_f
       raise ArgumentError.new("Value can't be greater than original price") if value >= original_price
       Spree::Calculator::FixedAmountOffSalePriceCalculator.new

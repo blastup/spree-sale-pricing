@@ -1,26 +1,17 @@
 <%#= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => "Product Sale Prices"} %>
 
+
 <%= csrf_meta_tag %>
 <div id="add-line-item">
   <fieldset>
     <legend align="center">
       <%= Spree.t('add_product_sale_prices') %>
     </legend>
-    <!--
-    :id,
-                :value,
-                :currency,
-                :start_at,
-                :end_at,
-                :enabled
 
-    -->
     <%= form_for [:admin, Spree::SalePrice.new], remote: true do |f| %>
-      <div data-hook="admin_sale_prices_form_taxons">
-        <%= f.fields_for :taxons, class: ['form-group'] do |taxon_w| %>
-          <%= taxon_w.label :taxon_ids, Spree.t(:taxons) %>
-          <%= taxon_w.text_field :name, class: 'parent-name', data: '{autocomplete_source: Spree::Taxon.order(:name).map(&:name)}' %>
-        <% end %>
+
+      <div data-hook="admin_sale_prices_form_taxons" class="col-lg-12">
+        <%= f.select 'taxons', options_from_collection_for_select(@taxons, 'id', 'name'), {include_hidden: false}, {multiple: true} %>
       </div>
 
       <div class="col-lg-6 col-md-12">
@@ -62,11 +53,3 @@
 <div id="product-sale-prices-table">
   <%#= render partial: "table", locals: { product: @product } %>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-  $(function() {
-    $('.parent-name').autocomplete({
-      source: $('.parent-name').data('autocomplete-source')
-    });
-  });
-</script>

@@ -1,5 +1,4 @@
 <tr class="spree-product-sale-price" data-hook="sale_prices_row" id="<%=spree_dom_id(sale_price)%>">
-  <%= console sale_price%>
   <td class="align-center"><%= sale_price.active? ? 'Yes' : ''%></td>
   <td><%= sale_price.display_price.to_html %></td>
   <td><%= (l sale_price.start_at ) if sale_price.start_at %></td>
