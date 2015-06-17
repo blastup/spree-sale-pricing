@@ -20,7 +20,7 @@ module Spree
             @sale_price = product.put_on_sale(params[:sale_price][:value], sale_price_params)
 
             @sale = Spree::SalePrice.last
-            Spree::SalePriceTaxon.create({sale_price_id: @sale.id, taxon_id: taxon})
+            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon})
             @sale_prices << @sale_price
           end
         end
