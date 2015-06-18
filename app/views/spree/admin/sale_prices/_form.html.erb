@@ -16,6 +16,10 @@
             <%= f.text_field :name, :class => 'form-control' %>
           </div>
 
+          <div class="col-lg-12">
+            <%= f.select :kind, options_for_select([["Percentual", "percentual"], ["Desconto Fixo", "fixeddiscount"], ["Preço Fixo", 'fixedprice']]) %>
+          </div>
+
         <%= f.fields_for Spree::SalePrice.new do |ff| %>
           <div class='form-group col-lg-6'>
                 <%= f.label :taxons %>
@@ -62,4 +66,8 @@
 
     <% end %>
   </fieldset>
+</div>
+
+<div id="product-sale-prices-table">
+  <%#= render partial: "table", locals: { product: @product } %>
 </div>
