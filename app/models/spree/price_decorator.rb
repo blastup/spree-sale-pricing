@@ -3,7 +3,7 @@ Spree::Price.class_eval do
 
   def put_on_sale(value, params = {})
     value = value.class.to_s == 'String' ? value.to_f : value
-    saved = new_sale(value, params).save
+    new_sale(value, params).save
   end
 
   def new_sale(value, params = {})
@@ -15,7 +15,7 @@ Spree::Price.class_eval do
         calculator: selected_calc(params.fetch(:kind, 'percentual'), value)
     }
 
-    if ((params[:kind] == 'percentual' || params[:kind].nil? ) && value >= 1)
+    if (params[:kind] == 'percentual' || params[:kind].nil? ) && value >= 1
       sale_price_params[:value] = value / 100
     end
 

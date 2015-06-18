@@ -8,43 +8,57 @@
       <%= Spree.t('add_product_sale_prices') %>
     </legend>
 
-    <%= form_for [:admin, Spree::SalePrice.new], remote: true do |f| %>
+    <%= form_for [:admin, Spree::SalePromotion.new], url: { action: 'create' }, remote: true do |f| %>
 
-      <div data-hook="admin_sale_prices_form_taxons" class="col-lg-12">
-        <%= f.select 'taxons', options_from_collection_for_select(@taxons, 'id', 'name'), {include_hidden: false}, {multiple: true} %>
-      </div>
+        <div class="col-lg-12 col-md-12">
+          <div class="form-group col-lg-6">
+            <%= f.label :name, t('sale_promotion_name') %>
+            <%= f.text_field :name, :class => 'form-control' %>
+          </div>
 
-      <div class="col-lg-6 col-md-12">
+        <%= f.fields_for Spree::SalePrice.new do |ff| %>
+          <div class='form-group col-lg-6'>
+                <%= f.label :taxons %>
+            <div data-hook="admin_sale_prices_form_taxons">
+            <%= ff.select 'taxons', options_from_collection_for_select(@taxons, 'id', 'name'), {include_hidden: false}, {multiple: true, class: 'select_multiple_checkbox'} %>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-12">
           <div class="form-group col-lg-4">
             <%= label_tag t('original_price') %>
-            <%= f.check_box :enabled, class: "form-control" %>
+            <%= ff.check_box :enabled, class: "form-control" %>
           </div>
 
           <div class="form-group col-lg-4 col-md-6">
-            <%= f.label :value, t('sale_price_amount') %>
-            <%= f.text_field :value, class: "form-control" %>
+            <%= ff.label :value, t('sale_price_amount') %>
+            <%= ff.text_field :value, class: "form-control" %>
           </div>
 
           <div class="form-group col-lg-4 col-md-6">
-            <%= f.label :currency, t('sale_price_currency') %>
-            <%= f.select :currency, options_for_select(supported_currencies_for_sale_price), {}, { class: "form-control"} %>
+            <%= ff.label :currency, t('sale_price_currency') %>
+            <%= ff.select :currency, options_for_select(supported_currencies_for_sale_price), {}, { class: "form-control"} %>
           </div>
         </div>
 
         <div class="col-lg-6 col-md-12">
           <div class="col-lg-4 col-md-6">
-            <%= f.label :start_at, t('sale_price_start_at') %>
-            <%= f.text_field :start_at, class: "datetimepicker form-control"  %>
+            <%= ff.label :start_at, t('sale_price_start_at') %>
+            <%= ff.text_field :start_at, class: "datetimepicker form-control"  %>
           </div>
           <div class="col-lg-4 col-md-6">
-            <%= f.label :end_at, t('sale_price_end_at') %>
-            <%= f.text_field :end_at, class: "datetimepicker form-control" %>
+            <%= ff.label :end_at, t('sale_price_end_at') %>
+            <%= ff.text_field :end_at, class: "datetimepicker form-control" %>
           </div>
           <div class="col-lg-4 pull-right">
-            <%= f.label :submit, style: 'visibility: hidden;' %>
-            <%= f.submit "Add Sale Price", class: "btn btn-default" %>
+            <%= ff.label :submit, style: 'visibility: hidden;' %>
+            <%= ff.submit "Add Sale Price", class: "btn btn-default" %>
           </div>
         </div>
+
+        <% end %>
 
     <% end %>
   </fieldset>

@@ -4,6 +4,8 @@ module Spree
     belongs_to :price, class_name: "Spree::Price"
     delegate_belongs_to :price, :currency
 
+    belongs_to :sale_promotion
+
     has_one :variant, through: :price
 
     has_one :calculator, class_name: "Spree::Calculator", as: :calculable, dependent: :destroy

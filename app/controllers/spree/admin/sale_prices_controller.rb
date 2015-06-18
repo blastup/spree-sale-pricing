@@ -12,6 +12,8 @@ module Spree
       end
 
       def create
+        @sale_promotion = Spree::SalePromotion.new(sale_promotion_params)
+
         params[:sale_price][:taxons].each do  |taxon|
 
           @sale_prices = []
@@ -52,6 +54,10 @@ module Spree
             :end_at,
             :enabled
         )
+      end
+
+      def sale_promotion_params
+
       end
     end
   end
