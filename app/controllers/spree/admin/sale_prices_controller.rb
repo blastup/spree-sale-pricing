@@ -12,18 +12,21 @@ module Spree
       end
 
       def create
-        @sale_promotion = Spree::SalePromotion.new(sale_promotion_params)
+        @sale_prices = []
+        @sale_promotion = Spree::SalePromotion.create(sale_promotion_params)
+        params[:sale_promotion][:sale_price][:sale_promotion_id] = @sale_promotion.id
+        params[:sale_promotion][:sale_price][:value] = @sale_promotion.value
 
-        params[:sale_price][:taxons].each do  |taxon|
+        params[:sale_promotion][:sale_price][:taxons].each do  |taxon|
 
           @sale_prices = []
           @taxon = Spree::Taxon.find(taxon)
           @taxon.products.each do |product|
-            @sale_price = product.put_on_sale(params[:sale_price][:value], sale_price_params)
+            @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
 
             @sale = Spree::SalePrice.last
-            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon})
-            @sale_prices << @sale_price
+            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon}) if @sale
+            @sale_prices << @sale_price if @sale
           end
         end
         respond_with(@sale_prices)
@@ -46,19 +49,22 @@ module Spree
       end
 
       def sale_price_params
-        params.require(:sale_price).permit(
-            :id,
+        params.require(:sale_promotion).permit(
+            :name,
+            :kind,
             :value,
-            :currency,
-            :start_at,
-            :end_at,
-            :enabled
+            :sale_price => [:id, :value, :currency, :start_at, :end_at, :enabled, :taxons, :sale_promotion_id]
         )
       end
 
       def sale_promotion_params
-
+        params.require(:sale_promotion).permit(
+          :name,
+          :kind,
+          :value
+        )
       end
+
     end
   end
 end

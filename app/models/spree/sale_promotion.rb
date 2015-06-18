@@ -1,7 +1,7 @@
 module Spree
   class SalePromotion < ActiveRecord::Base
 
-    has_many :sale_prices
+    has_many :sale_prices, dependent: :destroy
 
     accepts_nested_attributes_for :sale_prices
 

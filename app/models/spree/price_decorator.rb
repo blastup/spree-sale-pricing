@@ -12,7 +12,8 @@ Spree::Price.class_eval do
         start_at: params.fetch(:start_at, Time.now),
         end_at: params.fetch(:end_at, nil),
         enabled: params.fetch(:enabled, true),
-        calculator: selected_calc(params.fetch(:kind, 'percentual'), value)
+        calculator: selected_calc(params.fetch(:kind, 'percentual'), value),
+        sale_promotion_id: params.fetch(:sale_promotion_id, nil)
     }
 
     if (params[:kind] == 'percentual' || params[:kind].nil? ) && value >= 1

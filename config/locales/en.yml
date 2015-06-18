@@ -12,4 +12,6 @@ en:
   sale_price_start_at: 'Sale Start Date'
   sale_price_end_at: 'Sale End Date'
   sale_price_enabled: 'Enabled'
+  sale_price_taxons: 'Taxons'
   sale_promotion_name: 'Name'
+  sale_promotion_kind: 'Promotion Type'
