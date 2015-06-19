@@ -78,6 +78,7 @@ module Spree
             :value,
             :start_at,
             :end_at,
+            :status,
             :taxons
         )
       end
@@ -87,6 +88,7 @@ module Spree
         params[:sale_promotion][:sale_price][:value] = @sale_promotion.value
         params[:sale_promotion][:sale_price][:start_at] = @sale_promotion.start_at
         params[:sale_promotion][:sale_price][:end_at] = @sale_promotion.end_at
+        params[:sale_promotion][:sale_price][:enabled] = @sale_promotion.status
       end
 
       def create_sale_prices
