@@ -8,7 +8,7 @@
       <%= Spree.t('add_product_sale_prices') %>
     </legend>
 
-    <%= form_for [:admin, @sale_promotion], remote: true do |f| %>
+    <%= form_for [:admin, @sale_promotion], remote: @remote do |f| %>
 
         <div class="col-lg-12 col-md-12">
           <div class="form-group col-lg-3">

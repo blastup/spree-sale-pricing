@@ -2,7 +2,7 @@ module Spree
   module Admin
     class SalePromotionsController < BaseController
 
-      # before_filter :load_product
+      before_filter :set_remote
 
       respond_to :js, :html
 
@@ -45,6 +45,8 @@ module Spree
 
         set_sale_price_params
         create_sale_prices
+
+        @sale_price_promotions = Spree::SalePromotion.all
 
         redirect_to admin_sale_promotions_path
       end
@@ -103,6 +105,14 @@ module Spree
             Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon}) if @sale
             @sale_prices << @sale_price if @sale
           end
+        end
+      end
+
+      def set_remote
+        if params[:action] == 'edit'
+          @remote = false
+        else
+          @remote = true
         end
       end
 
