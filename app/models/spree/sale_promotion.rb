@@ -7,8 +7,6 @@ module Spree
 
     accepts_nested_attributes_for :sale_prices
 
-    attr_accessor :taxons_ids
-
     after_save :touch_all_prices
 
     def touch_all_prices
