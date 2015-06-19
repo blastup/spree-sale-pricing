@@ -23,6 +23,7 @@ module Spree
           create_sale_prices
         end
 
+        @sale_price_promotions = Spree::SalePromotion.all
         respond_with(@sale_prices)
 
         # @sale_price = @product.put_on_sale params[:sale_price][:value], sale_price_params
@@ -43,12 +44,14 @@ module Spree
 
         set_sale_price_params
         create_sale_prices
+
+        redirect_to admin_sale_promotions_path
       end
 
       def destroy
-        @sale_price = Spree::SalePrice.find(params[:id])
-        @sale_price.destroy
-        respond_with(@sale_price)
+        @sale_promotion = Spree::SalePromotion.find(params[:id])
+        @sale_promotion.destroy
+        respond_with(@sale_promotion)
       end
 
       private
@@ -63,7 +66,8 @@ module Spree
             :name,
             :kind,
             :value,
-            :sale_price => [:id, :value, :currency, :start_at, :end_at, :enabled, :taxons, :sale_promotion_id]
+            :taxons,
+            :sale_price => [:id, :value, :currency, :start_at, :end_at, :enabled, :sale_promotion_id]
         )
       end
 
@@ -73,7 +77,8 @@ module Spree
             :kind,
             :value,
             :start_at,
-            :end_at
+            :end_at,
+            :taxons
         )
       end
 
@@ -85,7 +90,7 @@ module Spree
       end
 
       def create_sale_prices
-        params[:sale_promotion][:sale_price][:taxons].each do  |taxon|
+        params[:sale_promotion][:taxons].each do  |taxon|
           @sale_prices = []
           @taxon = Spree::Taxon.find(taxon)
           @taxon.products.each do |product|

@@ -8,7 +8,7 @@
       <%= Spree.t('add_product_sale_prices') %>
     </legend>
 
-    <%= form_for [:admin, @sale_promotion], url: { action: 'create' }, remote: true do |f| %>
+    <%= form_for [:admin, @sale_promotion], remote: true do |f| %>
 
         <div class="col-lg-12 col-md-12">
           <div class="form-group col-lg-3">
@@ -25,7 +25,7 @@
           <div class='form-group col-lg-6'>
             <%= f.label :taxons, "Taxons" %>
             <div data-hook="admin_sale_prices_form_taxons">
-            <%= ff.select 'taxons', options_from_collection_for_select(@taxons, 'id', 'name'), {include_hidden: false}, {multiple: true, class: 'select_multiple_checkbox'} %>
+            <%= f.select :taxons, options_for_select(@taxons.map {|t| [t.name, t.id]}, @sale_promotion.taxons.map { |s| s.id }), {include_hidden: false}, {multiple: true, class: 'select_multiple_checkbox'} %>
             </div>
 
           </div>
@@ -67,8 +67,4 @@
 
     <% end %>
   </fieldset>
-</div>
-
-<div id="product-sale-prices-table">
-  <%#= render partial: "table", locals: { product: @product } %>
 </div>

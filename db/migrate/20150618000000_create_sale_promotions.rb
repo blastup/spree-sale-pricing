@@ -7,7 +7,7 @@ class CreateSalePromotions < ActiveRecord::Migration
       t.decimal :value, precision: 10, scale: 2, null: false
       t.datetime :start_at
       t.datetime :end_at
-      t.boolean :status, default: false
+      t.boolean :status, default: true
 
       t.timestamps
     end

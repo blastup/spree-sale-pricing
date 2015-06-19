@@ -1,4 +1,4 @@
-<%= render partial: "form" %>
+<%= render partial: 'form' %>
 
 <div class="col-lg-12 col-md-12 spree-product-sale-title" data-hook="sale_prices_title" >
 
@@ -26,7 +26,12 @@
     <h3>Status</h3>
   </div>
 
+  <div class="col-md-2">
+    <h3></h3>
+  </div>
+
 </div>
 
-
-<%= render partial: "sale_price", collection: @sale_price_promotions, locals: {} %>
+<div id='product-sale-prices-table'>
+    <%= render partial: 'sale_promotion', collection: @sale_price_promotions, locals: {} %>
+</div>

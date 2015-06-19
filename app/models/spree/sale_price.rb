@@ -14,8 +14,9 @@ module Spree
 
     scope :active, -> { where(enabled: true).where('(start_at <= ? OR start_at IS NULL) AND (end_at >= ? OR end_at IS NULL)', Time.now, Time.now) }
 
-    has_many :spree_sale_price_taxons, :class_name => 'Spree::SalePriceTaxon'
-    has_many :taxons, through: :spree_sale_price_taxons
+    has_many :sale_price_taxons, class_name: 'Spree::SalePriceTaxon', dependent: :destroy, foreign_key: 'sale_prices_id'
+    has_many :taxons, through: :sale_price_taxons
+
     before_destroy :touch_product
 
     # TODO make this work or remove it

@@ -1,1 +1,1 @@
-//$('table#product_sale_prices').replaceWith('<%#= j render partial: 'table', locals: {product: @product} %>');
+$('#product-sale-prices-table').html('<%= raw escape_javascript( render partial: 'sale_promotion', collection: @sale_price_promotions, locals: {}  ) %>');
