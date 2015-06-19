@@ -36,6 +36,10 @@ module Spree
         # respond_with(@sale_price)
       end
 
+      def update
+
+      end
+
       def destroy
         @sale_price = Spree::SalePrice.find(params[:id])
         @sale_price.destroy
