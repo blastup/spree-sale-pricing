@@ -7,10 +7,10 @@ module Spree
 
     accepts_nested_attributes_for :sale_prices
 
-    after_save :touch_all_prices
+    before_save :set_start_at
 
-    def touch_all_prices
-
+    def set_start_at
+      self.start_at = Time.now unless self.start_at
     end
 
   end

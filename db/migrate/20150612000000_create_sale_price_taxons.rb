@@ -1,6 +1,7 @@
 class CreateSalePriceTaxons < ActiveRecord::Migration
   def change
 
+    # O ID é adicionado em outro migration para evitar Reset do banco
     create_table :spree_sale_price_taxons, :id => false do |t|
       t.references :sale_prices
       t.references :taxon
