@@ -1,10 +1,26 @@
-<tr class="spree-product-sale-price" data-hook="sale_prices_row" id="<%=spree_dom_id(sale_price)%>">
-  <td class="align-center"><%= sale_price.active? ? 'Yes' : ''%></td>
-  <td><%= sale_price.display_price.to_html %></td>
-  <td><%= (l sale_price.start_at ) if sale_price.start_at %></td>
-  <td><%= (l sale_price.end_at) if sale_price.end_at %></td>
-  <td class="align-center"><%= sale_price.enabled %></td>
-  <td class="actions">
-    <%#= link_to_delete sale_price, {url: admin_product_sale_price_url(product, sale_price.id), no_text: true} %>
-  </td>
-</tr>
+<div class="col-lg-12 col-md-12 spree-product-sale-price" data-hook="sale_prices_row" id="<%= sale_price.id %>">
+  <div class="col-md-2">
+  	<%= sale_price.name %>
+  </div>  
+
+  <div class="col-md-2">
+  	<%= display_type sale_price.kind %>
+  </div>
+
+  <div class="col-md-2">
+  	<%= display_discount sale_price.kind, sale_price.value %>
+  </div>
+
+  <div class="col-md-2">
+  	<%= display_datetime sale_price.start_at %>
+  </div>
+
+  <div class="col-md-2">
+  	<%= display_datetime sale_price.end_at %>
+  </div>
+
+  <div class="col-md-2">
+  	<%= display_status sale_price.status %>
+  </div>
+
+</div>

@@ -1,38 +1,32 @@
-<% if @sale_prices.present? %>
 <%= render partial: "form" %>
-<table class="index" data-hook="sale_price_table" id="product_sale_prices">
-  <colgroup>
-    <col>
-    <col>
-    <col style="width: 30%">
-    <col style="width: 30%">
-    <col>
-    <col>
-  </colgroup>
-  <thead>
-  <tr data-hook="sale_prices_header">
-    <th>
-      <%= Spree.t('value') %>
-    </th>
-    <th>
-      <%= Spree.t('currency') %>
-    </th>
-    <th>
-      <%= Spree.t('sale_price_start_at') %>
-    </th>
-    <th>
-      <%= Spree.t('sale_price_end_at') %>
-    </th>
-    <th>
-      <%= Spree.t('sale_price_enabled') %>
-    </th>
-    <th class="actions"></th>
-  </tr>
-  </thead>
-  <tbody>
-  <%= render partial: "sale_price", collection: @sale_prices, locals: {} %>
-  </tbody>
-</table>
-<% else %>
-    <%= render partial: "form" %>
-<% end %>
+
+<div class="col-lg-12 col-md-12 spree-product-sale-title" data-hook="sale_prices_title" >
+
+  <div class="col-md-2">
+    <h3>Nome</h3>
+  </div>
+
+  <div class="col-md-2">
+    <h3>Tipo</h3>
+  </div>
+
+  <div class="col-md-2">
+    <h3>Desconto</h3>
+  </div>
+
+  <div class="col-md-2">
+    <h3>Início</h3>
+  </div>
+
+  <div class="col-md-2">
+    <h3>Término</h3>
+  </div>
+
+  <div class="col-md-2">
+    <h3>Status</h3>
+  </div>
+
+</div>
+
+
+<%= render partial: "sale_price", collection: @sale_price_promotions, locals: {} %>

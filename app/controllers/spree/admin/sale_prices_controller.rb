@@ -7,6 +7,7 @@ module Spree
       respond_to :js, :html
 
       def index
+        @sale_price_promotions = Spree::SalePromotion.all
         @sale_prices = Spree::SalePrice.all
         @taxons = Spree::Taxon.all
       end
