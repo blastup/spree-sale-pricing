@@ -15,6 +15,11 @@ module Spree
 
       def create
         @sale_prices = []
+
+        if sale_promotion_params[:start_at] == ""
+          sale_promotion_params[:start_at] = Time.now
+        end
+
         @sale_promotion = Spree::SalePromotion.create(sale_promotion_params)
 
         # Set dos params para SalePrice
