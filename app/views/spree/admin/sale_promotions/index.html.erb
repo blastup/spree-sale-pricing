@@ -2,31 +2,6 @@
 
 <div class="col-lg-12 col-md-12 spree-product-sale-title" data-hook="sale_prices_title" >
 
-  <div class="col-md-2">
-    <h3>Nome</h3>
-  </div>
-
-  <div class="col-md-2">
-    <h3>Tipo</h3>
-  </div>
-
-  <div class="col-md-2">
-    <h3>Desconto</h3>
-  </div>
-
-  <div class="col-md-2">
-    <h3>Início</h3>
-  </div>
-
-  <div class="col-md-2">
-    <h3>Término</h3>
-  </div>
-
-  <div class="col-md-1">
-    <h3>Status</h3>
-  </div>
 </div>
 
-<div id='product-sale-prices-table'>
-    <%= render partial: 'sale_promotion', collection: @sale_price_promotions, locals: {} %>
-</div>
+<%= render partial: 'table' %>
