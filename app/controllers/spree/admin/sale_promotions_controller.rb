@@ -70,7 +70,7 @@ module Spree
             :kind,
             :value,
             :taxons,
-            :sale_price => [:id, :value, :currency, :start_at, :end_at, :enabled, :sale_promotion_id]
+            :sale_price => [:id, :value, :currency, :start_at, :end_at, :enabled, :sale_promotion_id, :kind]
         )
       end
 

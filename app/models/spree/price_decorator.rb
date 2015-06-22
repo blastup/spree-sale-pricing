@@ -28,10 +28,8 @@ Spree::Price.class_eval do
       Spree::Calculator::FixedAmountSalePriceCalculator.new
     elsif kind == 'fixeddiscount'
       original_price = Spree::Variant.find(self.variant_id).original_price.to_f
-      raise ArgumentError.new("Value can't be greater than original price") if value >= original_price
       Spree::Calculator::FixedAmountOffSalePriceCalculator.new
     else
-      raise ArgumentError.new("Value must be less than 1 or more than 0") if value <= 0
       Spree::Calculator::PercentOffSalePriceCalculator.new
     end
   end
