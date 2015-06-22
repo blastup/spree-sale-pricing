@@ -1,8 +1,8 @@
 # encoding: UTF-8
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
-  s.name        = 'spree-sale_price'
-  s.version     = '3.0.5'
+  s.name        = 'spree_sale_price'
+  s.version     = '3.0.6'
   s.summary     = 'Adds sale pricing functionality to Spree Commerce'
   s.description = 'Adds sale pricing functionality to Spree Commerce'
   s.required_ruby_version = '>= 1.9.3'
@@ -28,4 +28,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'pg'
 end

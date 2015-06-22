@@ -12,3 +12,4 @@ spec/dummy
 .ruby-version
 coverage
 Gemfile.lock
+log
