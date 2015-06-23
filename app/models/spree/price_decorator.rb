@@ -16,18 +16,13 @@ Spree::Price.class_eval do
         sale_promotion_id: params.fetch(:sale_promotion_id, nil)
     }
 
-    if (params[:kind] == 'percentual' || params[:kind].nil? ) && value >= 1
-      sale_price_params[:value] = value / 100
-    end
-
     return sale_prices.new(sale_price_params)
   end
 
-  def selected_calc kind, value
+  def selected_calc(kind, value)
     if kind == 'fixedprice'
       Spree::Calculator::FixedAmountSalePriceCalculator.new
     elsif kind == 'fixeddiscount'
-      original_price = Spree::Variant.find(self.variant_id).original_price.to_f
       Spree::Calculator::FixedAmountOffSalePriceCalculator.new
     else
       Spree::Calculator::PercentOffSalePriceCalculator.new

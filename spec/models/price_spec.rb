@@ -4,7 +4,7 @@ describe Spree::Price do
 
   it 'can build a new sale by factory' do
     price = build(:price)
-    sale_price = price.new_sale(15.99)
+    sale_price = price.new_sale(15.99, {kind: 'fixedprice'})
 
     expect(price.on_sale?).to be false
     expect(price.price).to eql BigDecimal.new(19.99, 4)
@@ -20,7 +20,7 @@ describe Spree::Price do
 
   it 'can put a price on a fixed sale' do
     price = create(:price)
-    price.put_on_sale 15.95
+    price.put_on_sale(15.95, {kind: 'fixedprice'})
 
     expect(price.on_sale?).to be true
     expect(price.price).to eql BigDecimal.new(15.95, 4)
@@ -50,7 +50,7 @@ describe Spree::Price do
 
     it 'returns correct percentage value' do
       price = create(:price)
-      price.put_on_sale(15.00)
+      price.put_on_sale(15.00, {kind: 'fixedprice'})
       expect(price.discount_percent.to_f).to be_within(0.1).of(25)
     end
   end
