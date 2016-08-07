@@ -2,16 +2,15 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  sale_price: "Sale Price"
-  original_price: "Original Price (Standard Currency)"
-  product_sale_prices: "Product Sale Prices"
-  add_product_sale_prices: "Add Product Sale Price"
-  sale_price_amount: 'Amount'
-  sale_price_active: 'Active'
-  sale_price_currency: "Currency"
-  sale_price_start_at: 'Sale Start Date'
-  sale_price_end_at: 'Sale End Date'
-  sale_price_enabled: 'Enabled'
-  sale_price_taxons: 'Taxons'
-  sale_promotion_name: 'Name'
-  sale_promotion_kind: 'Promotion Type'
+  spree:
+    spree_sale_price:
+      name: Name
+      type: Type
+      discont: Discont
+      start_at: Start at
+      end_at: End at
+      status: Status
+      sale_types:
+        percentage: Percentage
+        fixeddiscount: Fixed discount
+        fixedprice: Fixed price

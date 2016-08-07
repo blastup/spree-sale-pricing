@@ -3,11 +3,11 @@ module Spree
 
 		def display_type kind
 			if kind == 'percentual'
-				'Percentual'
+				Spree.t('sale_types.percentage', scope: :spree_sale_price)
 			elsif kind == 'fixeddiscount'
-				'Desconto Fixo'
+				Spree.t('sale_types.fixeddiscount', scope: :spree_sale_price)
 			elsif kind == 'fixedprice'
-				'Preço Fixo' 
+				Spree.t('sale_types.fixedprice', scope: :spree_sale_price)
 			end
 		end
 

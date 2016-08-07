@@ -18,7 +18,11 @@
 
           <div class="col-lg-3 form-group">
             <%= f.label :kind, 'Type' %>
-            <%= f.select :kind, options_for_select([['Percentual', 'percentual'], ['Fixed discount', 'fixeddiscount'], ['Fixed price', 'fixedprice']], @sale_promotion.kind), {}, {:class => 'select2'} %>
+            <%= f.select :kind, options_for_select([
+                [Spree.t('sale_types.percentage', scope: :spree_sale_price), 'percentage'],
+                [Spree.t('sale_types.fixeddiscount', scope: :spree_sale_price), 'fixeddiscount'],
+                [Spree.t('sale_types.fixedprice', scope: :spree_sale_price), 'fixedprice']],
+              @sale_promotion.kind), {}, {:class => 'select2'} %>
           </div>
 
         <%= f.fields_for Spree::SalePrice.new do |ff| %>
