@@ -15,20 +15,20 @@ module Spree
 
       def create
         @sale_prices = []
-
         @sale_promotion = Spree::SalePromotion.create(sale_promotion_params)
 
-        # Set dos params para SalePrice
         if @sale_promotion
           set_sale_price_params
           create_sale_prices
         end
 
-        @sale_price_promotions = Spree::SalePromotion.all
-        respond_with(@sale_prices)
+        if @sale_promotion.errors.empty?
+          flash[:notice] = t('sale_promotion_saved')
+        else
+          flash[:error] = @sale_promotion.errors.full_messages.to_sentence
+        end
 
-        # @sale_price = @product.put_on_sale params[:sale_price][:value], sale_price_params
-        # respond_with(@sale_price)
+        redirect_to admin_sale_promotions_path
       end
 
       def edit
