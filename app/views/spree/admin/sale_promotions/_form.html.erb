@@ -53,23 +53,19 @@
             <%= f.check_box :status, class: 'form-control' %>
           </div>
 
-          <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-6">
             <%= f.label :start_at, Spree.t('start_at', scope: :spree_sale_price) %>
             <%= f.text_field :start_at, value: datepicker_field_value(@sale_promotion.start_at), class: 'datepicker datepicker-from form-control' %>
           </div>
-          <div class="col-lg-3 col-md-4 col-sm-6">
+          <div class="col-lg-3 col-md-3 col-sm-6">
             <%= f.label :end_at, Spree.t('end_at', scope: :spree_sale_price) %>
             <%= f.text_field :end_at, value: datepicker_field_value(@sale_promotion.end_at), class: 'datepicker datepicker-from form-control' %>
           </div>
-        </div>
-
-        <div class="col-lg-12">
-          <div class="form-group col-lg-4 pull-right">
+          <div class="form-group col-lg-3 col-md-4 pull-right">
             <%= f.label :submit, style: 'visibility: hidden;' %>
             <%= f.submit Spree.t('save', scope: :spree_sale_price), class: 'btn btn-primary form-control' %>
           </div>
         </div>
-
     <% end %>
   </fieldset>
 </div>
