@@ -4,6 +4,7 @@ module Spree
     has_many :sale_prices, dependent: :destroy
 
     has_many :taxons, through: :sale_prices
+    has_many :products, through: :sale_prices
 
     accepts_nested_attributes_for :sale_prices
 
