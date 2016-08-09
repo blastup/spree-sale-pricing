@@ -55,11 +55,11 @@
 
           <div class="col-lg-3 col-md-4 col-sm-6">
             <%= f.label :start_at, Spree.t('start_at', scope: :spree_sale_price) %>
-            <%= f.text_field :start_at, class: 'datetimepicker form-control'  %>
+            <%= f.text_field :start_at, value: datepicker_field_value(@sale_promotion.start_at), class: 'datepicker datepicker-from form-control' %>
           </div>
           <div class="col-lg-3 col-md-4 col-sm-6">
             <%= f.label :end_at, Spree.t('end_at', scope: :spree_sale_price) %>
-            <%= f.text_field :end_at, class: 'datetimepicker form-control' %>
+            <%= f.text_field :end_at, value: datepicker_field_value(@sale_promotion.end_at), class: 'datepicker datepicker-from form-control' %>
           </div>
         </div>
 
