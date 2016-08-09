@@ -2,7 +2,7 @@ module Spree
 	module SalePriceHelper
 
 		def display_type kind
-			if kind == 'percentual'
+			if kind == 'percentage'
 				Spree.t('sale_types.percentage', scope: :spree_sale_price)
 			elsif kind == 'fixeddiscount'
 				Spree.t('sale_types.fixeddiscount', scope: :spree_sale_price)
@@ -12,7 +12,7 @@ module Spree
 		end
 
 		def display_discount kind, value
-			if kind == 'percentual'
+			if kind == 'percentage'
 		 		value.to_i.to_s + ' %'
   		else
   			number_to_currency_br value
@@ -27,12 +27,12 @@ module Spree
 			begin
 				target.strftime "%H:%M %d/%m/%Y"
 			rescue
-				'Data não informada'
+				Spree.t('unknown_date', scope: :spree_sale_price)
 			end
 		end
 
 		def display_status status
-			status ? "Ativo" : "Inativo"
+			status ? Spree.t('active', scope: :spree_sale_price) : Spree.t('inactive', scope: :spree_sale_price)
 		end
 
 	end

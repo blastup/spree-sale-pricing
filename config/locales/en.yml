@@ -6,11 +6,19 @@ en:
     spree_sale_price:
       name: Name
       type: Type
+      taxons: Taxons
+      sale_price_enabled: Enabled
+      value: Value
+      currency: Currency
       discont: Discont
       start_at: Start at
       end_at: End at
+      save: Save
       status: Status
       sale_types:
         percentage: Percentage
         fixeddiscount: Fixed discount
         fixedprice: Fixed price
+      unknown_date: Date unknown
+      active: Active
+      inactive: Inactive

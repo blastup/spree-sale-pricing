@@ -30,7 +30,7 @@ describe Spree::Variant do
       expect(p.price).to eql BigDecimal.new(10.95, 4)
     end
 
-    variant.put_on_sale(10, {kind: 'percentual'})
+    variant.put_on_sale(10, {kind: 'percentage'})
     # Porcentagem
     variant.prices.each do |p|
       expect(p.price).to eql 17.991

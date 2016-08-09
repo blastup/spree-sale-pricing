@@ -1,0 +1,21 @@
+ru:
+  spree:
+    spree_sale_price:
+      name: Название
+      type: Тип
+      taxons: Таксоны
+      sale_price_enabled: Включена
+      value: Размер скидки
+      currency: Валюта
+      discont: Скидка
+      start_at: Начало
+      end_at: Окончание
+      save: Сохранить
+      status: Статус
+      sale_types:
+        percentage: Процент
+        fixeddiscount: Фикс. скидка
+        fixedprice: Фикс. цена
+      unknown_date: Дата неизвестна
+      active: Активна
+      inactive: Неактивна
