@@ -96,17 +96,22 @@ module Spree
       end
 
       def create_sale_prices
-        params[:sale_promotion][:taxons].each do  |taxon|
+        create_sale_prices_for_taxons
+      end
+
+      def create_sale_prices_for_taxons
+        @taxons = (params[:sale_promotion][:taxons] || []).map{|id| Spree::Taxon.find(id)}
+        @taxons.each do |taxon|
           @sale_prices = []
-          @taxon = Spree::Taxon.find(taxon)
-          @taxon.products.each do |product|
+          Spree::Product.in_taxon(taxon).each do |product|
             @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
 
             @sale = Spree::SalePrice.last
-            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon}) if @sale
+            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon.id})
             @sale_prices << @sale_price if @sale
           end
         end
+
       end
 
       def set_remote
