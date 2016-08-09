@@ -9,6 +9,9 @@ module Spree
 
     before_save :set_start_at
 
+    validates :value, presence: true, numericality: true
+    validates :name, presence: true
+
     def set_start_at
       self.start_at = Time.now unless self.start_at
     end
