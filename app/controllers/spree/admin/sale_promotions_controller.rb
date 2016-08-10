@@ -17,13 +17,10 @@ module Spree
         @sale_prices = []
         @sale_promotion = Spree::SalePromotion.create(sale_promotion_params)
 
-        if @sale_promotion
-          set_sale_price_params
-          create_sale_prices
-        end
-
         if @sale_promotion.errors.empty?
           flash[:notice] = t('sale_promotion_saved')
+          set_sale_price_params
+          create_sale_prices
         else
           flash[:error] = @sale_promotion.errors.full_messages.to_sentence
         end
@@ -97,21 +94,30 @@ module Spree
 
       def create_sale_prices
         create_sale_prices_for_taxons
+        create_sale_prices_for_products
       end
 
       def create_sale_prices_for_taxons
-        @taxons = (params[:sale_promotion][:taxons] || []).map{|id| Spree::Taxon.find(id)}
-        @taxons.each do |taxon|
+        Spree::Taxon.where(id: params[:sale_promotion][:taxons]).each do |taxon|
           @sale_prices = []
           Spree::Product.in_taxon(taxon).each do |product|
             @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
 
             @sale = Spree::SalePrice.last
-            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon.id})
+            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon.id}) if @sale
             @sale_prices << @sale_price if @sale
           end
         end
+      end
 
+      def create_sale_prices_for_products
+        Spree::Product.where(id: params[:sale_promotion][:products]).each do |product|
+          @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
+
+          @sale = Spree::SalePrice.last
+          Spree::SalePriceProduct.create({sale_prices_id: @sale.id, product_id: product.id}) if @sale
+          @sale_prices << @sale_price if @sale
+        end
       end
 
       def set_remote
