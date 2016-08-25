@@ -3,7 +3,7 @@
 <div id="add-line-item">
   <fieldset>
     <legend align="center">
-      <%= Spree.t('add_product_sale_prices') %>
+      <%= Spree.t('add_product_sale_prices', scope: :spree_sale_price) %>
     </legend>
 
     <%= form_for [:admin, @sale_promotion] do |f| %>
@@ -40,7 +40,7 @@
         <div class="col-lg-12">
           <div class="form-group col-lg-6 col-md-12">
             <%= f.field_container :taxons, class: ['form-group'] do %>
-              <%= f.label :taxons, t('taxons') %>
+              <%= f.label :taxons, Spree.t('taxons', scope: :spree_sale_price) %>
               <%= f.hidden_field :taxons,
                 value: @sale_promotion.taxon_ids.join(','),
                 id: 'product_taxon_ids',
@@ -51,7 +51,7 @@
 
           <div class="form-group col-lg-6 col-md-12">
             <%= f.field_container :products, class: ['form-group'] do %>
-              <%= f.label :products, t('products') %>
+              <%= f.label :products, Spree.t('products', scope: :spree_sale_price) %>
               <%= f.hidden_field :products,
                 value: @sale_promotion.product_ids.join(','),
                 name: 'sale_promotion[products][]',
