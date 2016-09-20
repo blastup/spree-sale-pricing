@@ -34,6 +34,7 @@ module Spree
       end
 
       def update
+        @sale_prices = []
         @sale_promotion = Spree::SalePromotion.find(params[:id])
         @sale_promotion.update_attributes(sale_promotion_params)
 
