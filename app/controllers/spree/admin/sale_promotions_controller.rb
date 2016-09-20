@@ -100,18 +100,16 @@ module Spree
       def create_sale_prices_for_taxons
         Spree::Taxon.where(id: params[:sale_promotion][:taxons]).each do |taxon|
           @sale_prices = []
-          Spree::Product.in_taxon(taxon).each do |product|
-            @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
-
-            @sale = Spree::SalePrice.last
-            Spree::SalePriceTaxon.create({sale_prices_id: @sale.id, taxon_id: taxon.id}) if @sale
-            @sale_prices << @sale_price if @sale
-          end
+          create_sale_prices_for_the_products(Spree::Product.in_taxon(taxon))
         end
       end
 
       def create_sale_prices_for_products
-        Spree::Product.where(id: params[:sale_promotion][:products]).each do |product|
+        create_sale_prices_for_the_products(Spree::Product.where(id: params[:sale_promotion][:products]))
+      end
+
+      def create_sale_prices_for_the_products products
+        products.each do |product|
           @sale_price = product.put_on_sale(sale_price_params[:sale_price][:value], sale_price_params[:sale_price])
 
           @sale = Spree::SalePrice.last
