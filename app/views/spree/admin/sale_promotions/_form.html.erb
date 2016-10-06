@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-lg-12">
-          <div class="form-group col-lg-6 col-md-12">
+          <!-- <div class="form-group col-lg-6 col-md-12">
             <%= f.field_container :taxons, class: ['form-group'] do %>
               <%= f.label :taxons, Spree.t('taxons', scope: :spree_sale_price) %>
               <%= f.hidden_field :taxons,
@@ -47,9 +47,9 @@
                 name: 'sale_promotion[taxons][]'
               %>
             <% end %>
-          </div>
+          </div> -->
 
-          <div class="form-group col-lg-6 col-md-12">
+          <div class="form-group col-lg-12 col-md-12">
             <%= f.field_container :products, class: ['form-group'] do %>
               <%= f.label :products, Spree.t('products', scope: :spree_sale_price) %>
               <%= f.hidden_field :products,
