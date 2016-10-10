@@ -99,14 +99,16 @@ module Spree
       end
 
       def create_sale_prices_for_taxons
-        Spree::Taxon.where(id: params[:sale_promotion][:taxons]).each do |taxon|
-          @sale_prices = []
-          create_sale_prices_for_the_products(Spree::Product.in_taxon(taxon))
+        if params[:sale_promotion][:taxons]
+          Spree::Taxon.where(id: params[:sale_promotion][:taxons][0].split(',')).each do |taxon|
+            @sale_prices = []
+            create_sale_prices_for_the_products(Spree::Product.in_taxon(taxon))
+          end
         end
       end
 
       def create_sale_prices_for_products
-        create_sale_prices_for_the_products(Spree::Product.where(id: params[:sale_promotion][:products]))
+        create_sale_prices_for_the_products(Spree::Product.where(id: params[:sale_promotion][:products][0].split(',')))
       end
 
       def create_sale_prices_for_the_products products
