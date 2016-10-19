@@ -4,6 +4,8 @@
 en:
   spree:
     spree_sale_price:
+      sale_price: Sale price
+      show_on_sale: Show on sale
       name: Name
       type: Type
       taxons: Taxons

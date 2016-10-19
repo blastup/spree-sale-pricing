@@ -4,6 +4,7 @@ class CreateSalePrices < ActiveRecord::Migration
       t.integer :price_id
       t.float :value
       t.datetime :start_at
+      t.string :kind
       t.datetime :end_at
       t.boolean :enabled
       t.timestamps
