@@ -58,7 +58,7 @@ module Spree
 
     protected
       def touch_product
-        self.variant.product.touch
+        self.variant.product.touch if self.variant
       end
 
   end
