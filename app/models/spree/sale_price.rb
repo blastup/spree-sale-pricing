@@ -4,8 +4,6 @@ module Spree
     belongs_to :price, class_name: "Spree::Price"
     delegate_belongs_to :price, :currency
 
-    belongs_to :sale_promotion
-
     has_one :variant, through: :price
 
     has_one :calculator, class_name: "Spree::Calculator", as: :calculable, dependent: :destroy
@@ -13,11 +11,6 @@ module Spree
     accepts_nested_attributes_for :calculator
 
     scope :active, -> { where(enabled: true).where('(start_at <= ? OR start_at IS NULL) AND (end_at >= ? OR end_at IS NULL)', Time.now, Time.now) }
-
-    has_many :sale_price_taxons, class_name: 'Spree::SalePriceTaxon', dependent: :destroy, foreign_key: 'sale_prices_id'
-    has_many :taxons, through: :sale_price_taxons
-    has_many :sale_price_products, class_name: 'Spree::SalePriceProduct', dependent: :destroy, foreign_key: 'sale_prices_id'
-    has_many :products, through: :sale_price_products
 
     before_destroy :touch_product
 
