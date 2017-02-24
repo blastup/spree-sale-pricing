@@ -40,7 +40,6 @@ module Spree
     end
 
     def start(end_time = nil)
-      byebug
       end_time = nil if end_time.present? && end_time <= Time.now # if end_time is not in the future then make it nil (no end)
       attr = { end_at: end_time, enabled: true }
       attr[:start_at] = Time.now if self.start_at.present? && self.start_at > Time.now # only set start_at if it's not set in the past

@@ -39,6 +39,10 @@ Spree::Product.class_eval do
     self.touch
   end
 
+  def on_sale_in?(currency)
+    master.on_sale_in?(currency)
+  end
+
   private
     def run_on_variants(all_variants, &block)
       if all_variants && variants.present?

@@ -5,7 +5,11 @@ Spree::Price.class_eval do
     value = value.class.to_s == 'String' ? value.to_f : value
     currentSalePrice = sale_prices.where(:price_id => self[:id]).first
     if !currentSalePrice.nil?
-      currentSalePrice.update_attribute(:value, value)
+      currentSalePrice.update(
+        :value => value, 
+        :start_at => params[:start_at].to_datetime,
+        :end_at => params[:end_at].to_datetime
+      )
     else
       new_sale(value, params).save
     end
