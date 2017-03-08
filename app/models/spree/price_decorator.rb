@@ -3,17 +3,26 @@ Spree::Price.class_eval do
 
   def put_on_sale(value, params = {})
     value = value.class.to_s == 'String' ? value.to_f : value
-    new_sale(value, params).save
+    currentSalePrice = sale_prices.where(:price_id => self[:id]).first
+    if !currentSalePrice.nil?
+      currentSalePrice.update(
+        :value => value, 
+        :start_at => params[:start_at].to_datetime,
+        :end_at => params[:end_at].to_datetime
+      )
+    else
+      new_sale(value, params).save
+    end
   end
 
   def new_sale(value, params = {})
     sale_price_params = {
         value: value,
-        start_at: params.fetch(:start_at, Time.now),
+        start_at: params[:start_at].nil? || params[:start_at].blank? ? Time.now : params[:start_at] ,
+        kind: params.fetch(:kind, 'percentage'),
         end_at: params.fetch(:end_at, nil),
         enabled: params.fetch(:enabled, true),
         calculator: selected_calc(params.fetch(:kind, 'percentage'), value),
-        sale_promotion_id: params.fetch(:sale_promotion_id, nil)
     }
 
     return sale_prices.new(sale_price_params)

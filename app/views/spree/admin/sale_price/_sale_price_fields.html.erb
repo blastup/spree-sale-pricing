@@ -1,0 +1,34 @@
+<div class='row'>
+    <div class='panel panel-default categories'>
+      <div class='panel-heading'>
+        <h1 class='panel-title'>
+          <%= Spree.t('sale_price', scope: :spree_sale_price) %>
+        </h1>
+      </div>
+
+      <div class='panel-body'>
+        <%= f.fields_for :sale_price do |sale_price_builder| %>
+          <div data-hook='new_product_sale_price_kind' class="<%= columns ? 'col-lg-3 col-md-3 col-sm-6' : '' %>">
+            <%= sale_price_builder.label :kind, Spree.t('type', scope: :spree_sale_price) %>
+            <%= sale_price_builder.select :kind, options_for_select([
+                [Spree.t('sale_types.percentage', scope: :spree_sale_price), 'percentage'],
+                [Spree.t('sale_types.fixeddiscount', scope: :spree_sale_price), 'fixeddiscount'],
+                [Spree.t('sale_types.fixedprice', scope: :spree_sale_price), 'fixedprice']],
+              @sale_price.kind), {}, {:class => 'select2'} %>
+          </div>
+          <div data-hook='new_product_sale_price_value' class="<%= columns ? 'col-lg-3 col-md-3 col-sm-6' : '' %>">
+            <%= sale_price_builder.label :value, Spree.t('value', scope: :spree_sale_price) %>
+            <%= sale_price_builder.text_field :value, value: @sale_price.value, class: 'form-control' %>
+          </div>
+          <div data-hook='new_product_sale_price_start_at' class="<%= columns ? 'col-lg-3 col-md-3 col-sm-6' : '' %>">
+            <%= sale_price_builder.label :start_at, Spree.t('start_at', scope: :spree_sale_price) %>
+            <%= sale_price_builder.text_field :start_at, value: datepicker_field_value(@sale_price.start_at), class: 'datepicker datepicker-from form-control' %>
+          </div>
+          <div data-hook='new_product_sale_price_end_at' class="<%= columns ? 'col-lg-3 col-md-3 col-sm-6' : '' %>">
+            <%= sale_price_builder.label :end_at, Spree.t('end_at', scope: :spree_sale_price) %>
+            <%= sale_price_builder.text_field :end_at, value: datepicker_field_value(@sale_price.end_at), class: 'datepicker datepicker-from form-control' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+</div>

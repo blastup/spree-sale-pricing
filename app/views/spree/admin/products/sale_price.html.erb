@@ -1,0 +1,5 @@
+<div id="add_stock_form" class="panel panel-default">
+  <%= form_for(@product, url: admin_sale_price_path, html: { method: :post }) do |f| %>
+    <%= render 'spree/admin/sale_price/sale_price_fields', locals: { f: f } %>
+  <% end %>  
+</div>
