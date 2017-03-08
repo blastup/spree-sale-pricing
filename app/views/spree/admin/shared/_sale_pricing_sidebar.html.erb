@@ -1,0 +1,5 @@
+<% if can? :admin, Spree::SalePrice %>
+  <ul class="nav nav-sidebar">
+    <%= tab Spree::SalePrice, url: '/admin/sale_promotions', icon: 'gift', label: Spree.t(:sales, scope: :spree_sale_price) %>
+  </ul>
+<% end %>

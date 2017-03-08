@@ -1,9 +1,12 @@
 ru:
   spree:
     spree_sale_price:
+      sales: "Скидки"
+      add_product_sale_prices: "Добавить скидку"
       name: Название
       type: Тип
       taxons: Таксоны
+      products: Продукты
       sale_price_enabled: Включена
       value: Размер скидки
       currency: Валюта
